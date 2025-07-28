@@ -1,0 +1,587 @@
+:root {
+  --primary: #845ef7;
+  --primary-hover: #7c4dff;
+  --on-primary: #ffffff;
+  --surface-light: rgba(255, 255, 255, 0.92);
+  --surface-dark: rgba(18, 18, 18, 0.92);
+  --on-surface-light: #121212;
+  --on-surface-dark: #ececec;
+  --shadow: rgba(0, 0, 0, 0.18);
+  --radius: 20px;
+  --card-radius: 20px;
+  --bg-frost-light: rgba(0, 0, 0, 0.04);
+  --bg-frost-dark: rgba(255, 255, 255, 0.06);
+  --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --font: "Roboto", system-ui, sans-serif;
+  --popup-width: 340px;
+  --select-bg-light: #f5f5f7;
+  --select-bg-dark: #232234;
+  --select-text-light: #1a1a1a;
+  --select-text-dark: #ececec;
+  --btc: #f7931a;
+  --kofi-filter: none;
+}
+
+:root,
+[data-theme="light"] {
+  --surface: var(--surface-light);
+  --on-surface: var(--on-surface-light);
+  --bg-frost: var(--bg-frost-light);
+  --select-bg: var(--select-bg-light);
+  --select-text: var(--select-text-light);
+}
+[data-theme="dark"] {
+  --surface: var(--surface-dark);
+  --on-surface: var(--on-surface-dark);
+  --bg-frost: var(--bg-frost-dark);
+  --select-bg: var(--select-bg-dark);
+  --select-text: var(--select-text-dark);
+  /* Invert Ko-fi icon colors for better contrast */
+  --kofi-filter: brightness(0) invert(1);
+}
+
+.compact-mode .header-row,
+.compact-mode .history-field,
+.compact-mode #settingsBtn,
+.compact-mode .crypto-support {
+  display: none !important;
+}
+
+.compact-mode .card {
+  padding: 6px !important;
+}
+
+.compact-mode {
+  --popup-width: 260px;
+}
+
+/* Popup sizing: pas de scroll, hauteur auto, largeur fixe */
+html,
+body {
+  width: var(--popup-width);
+  min-width: var(--popup-width);
+  max-width: var(--popup-width);
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font);
+  overflow: visible !important;
+  border-radius: var(--radius) !important;
+  transition: background var(--transition);
+}
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Card */
+.card {
+  position: relative;
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  border-radius: var(--card-radius) !important;
+  box-shadow: 0 8px 30px var(--shadow);
+  padding: 12px 10px 40px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header and controls */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.header-buttons {
+  display: flex;
+  gap: 0 !important;
+  justify-content: flex-start;
+  margin-left: 0;
+}
+.theme-toggle,
+.settings-btn,
+.support-btn {
+  margin: 0 !important;
+  padding: 4px 2px !important;
+  font-size: 1.2rem !important;
+  border-radius: 14px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  color: var(--on-surface) !important;
+  flex-shrink: 0 !important;
+  box-shadow: none !important;
+  line-height: 1 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.13s;
+}
+:is(.theme-toggle, .settings-btn, .support-btn):is(:hover, :focus) {
+  background: var(--bg-frost) !important;
+  outline: none !important;
+}
+.theme-icon {
+  pointer-events: none;
+  display: block;
+  line-height: 1;
+}
+
+/* Stylized app title */
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background-image: linear-gradient(to right, var(--primary), #6a43d6); /* Using existing primary color and a slightly darker shade */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; /* Fallback for non-webkit browsers */
+  display: inline-block; /* Needed for background-clip to work */
+}
+
+.history-field {
+  margin-bottom: 12px;
+}
+.history-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+#history {
+  flex: 1;
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  background: var(--bg-frost);
+  color: var(--on-surface);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.export-btn {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--on-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: background var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.export-btn:hover {
+  background: var(--primary-hover);
+}
+.export-loader {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--primary);
+  border-top: 3px solid #e0e0e0;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.export-btn.loading .export-loader {
+  display: inline-block;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.field {
+  margin-bottom: 16px;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem; /* Légèrement plus petit */
+  font-weight: 600; /* Plus léger que 500 */
+  opacity: 0.9; /* Légèrement plus transparent */
+  transition: color 0.2s ease;
+}
+
+.field:hover label {
+  color: var(--primary);
+  opacity: 1;
+}
+select,
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius) !important;
+  background: var(--bg-frost);
+  color: var(--on-surface);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow var(--transition), border 0.18s, transform var(--transition);
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Style cohérent des champs numériques en thème sombre */
+[data-theme="dark"] input[type="number"] {
+  color-scheme: dark;
+}
+select {
+  background: var(--select-bg);
+  color: var(--select-text);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='gray' height='12' viewBox='0 0 20 20' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.293 7.293a1 1 0 0 1 1.414 0L10 8.586l1.293-1.293a1 1 0 1 1 1.414 1.414l-2 2a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em top 50%;
+  background-size: 1em;
+  padding-right: 2.5em;
+  transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+select option,
+select optgroup {
+  background: var(--select-bg);
+  color: var(--select-text);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+select:hover,
+input:hover,
+.field:hover select,
+.field:hover input {
+  border-color: var(--primary);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(132, 94, 247, 0.2);
+}
+
+/* Améliorer l'état focus */
+input:focus {
+  box-shadow: 0 0 0 3px rgba(132, 94, 247, 0.3); /* Ring plus visible */
+  border: 2px solid var(--primary); /* Bordure plus épaisse */
+  transform: translateY(-1px); /* Légère élévation */
+}
+
+/* Harmonise la couleur des flèches du champ numérique en thème sombre
+   spécifiquement pour Opera GX. Chrome respecte correctement le
+   color-scheme, on limite donc l'inversion à Opera via une classe ajoutée
+   dynamiquement. */
+html.opera[data-theme="dark"] input[type='number']::-webkit-inner-spin-button,
+html.opera[data-theme="dark"] input[type='number']::-webkit-outer-spin-button {
+  filter: invert(1);
+}
+
+
+/* Swap */
+.swap-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+.swap-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50% !important;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  transition: background var(--transition), box-shadow 0.2s, transform 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+.swap-btn:hover {
+  background: var(--primary-hover);
+  transform: scale(1.1) rotate(-8deg);
+}
+.swap-btn.rotating .swap-svg {
+  transform: rotate(360deg);
+  transition: transform 0.48s cubic-bezier(0.39, 0.58, 0.57, 1.26);
+}
+.swap-svg {
+  transition: transform 0.42s cubic-bezier(0.39, 0.58, 0.57, 1.26);
+  display: block;
+}
+
+/* Loader */
+.loader {
+  width: 18px; /* Légèrement plus grand */
+  height: 18px;
+  border: 3px solid var(--bg-frost);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+  display: none;
+  filter: drop-shadow(0 2px 4px rgba(132, 94, 247, 0.3)); /* Ombre colorée */
+}
+
+output#result {
+  background: var(--bg-frost);
+  border-radius: 20px !important;
+  padding: 6px 10px; /* Augmenter légèrement le padding */
+  font-weight: 600; /* Réduire de 700 à 600 pour moins d'agressivité */
+  font-size: 0.95rem; /* Augmenter légèrement la taille */
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10px auto 18px;
+  max-width: 65%;
+  border: 1px solid var(--bg-frost); /* Ajouter une bordure subtile */
+  transition: all 0.2s ease; /* Ajouter une transition */
+}
+
+/* Effet au survol pour le résultat */
+output#result:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(132, 94, 247, 0.15);
+}
+
+button#copy {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1.04rem;
+  font-weight: 700;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 6px 24px var(--shadow);
+  cursor: pointer;
+  transition: background var(--transition), box-shadow 0.17s;
+  margin-bottom: 8px;
+  display: block;
+  text-align: center;
+}
+button#copy:active,
+button#copy.copied-anim {
+  background: linear-gradient(135deg, #10b981, #059669) !important; /* Dégradé vert */
+  color: #fff !important;
+  transform: scale(1.02); /* Moins agressif */
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+button#copy:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 9px 34px var(--shadow);
+}
+
+/* Crypto support floating buttons, bas à droite */
+.crypto-support {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  background: transparent;
+  z-index: 10;
+}
+.crypto-btn {
+  background: none;
+  border: none;
+}
+
+.kofi-icon {
+  filter: var(--kofi-filter);
+}
+
+.crypto-btn:hover,
+.crypto-btn:focus {
+  transform: translateY(-3px) scale(1.08); /* Mouvement plus subtil */
+}
+.crypto-btn#btcBtn:hover,
+.crypto-btn#btcBtn:focus {
+  box-shadow: 0 8px 32px 0 var(--btc), 0 2px 12px 0 #f7931a55;
+}
+.crypto-btn#supportBtn:hover,
+.crypto-btn#supportBtn:focus {
+  box-shadow: 0 8px 32px 0 #ff5e5b, 0 2px 12px 0 #ff5e5b55;
+}
+
+/* Modal for crypto address & QR (avec couleur de fond selon crypto) */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.35);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.23s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal.visible {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto;
+  animation: modalFadeIn 0.38s cubic-bezier(0.36, 0.64, 0.22, 1.16);
+}
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.modal-content {
+  background: var(--surface);
+  border-radius: 30px;
+  padding: 18px 18px 22px;
+  width: 290px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.32s cubic-bezier(0.44, 1.25, 0.37, 1.08);
+  transition: background 0.22s;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(35px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.crypto-modal-btc .modal-content {
+  background: #f7931a !important;
+  color: #fff !important;
+}
+  background: #627eea !important;
+  color: #fff !important;
+}
+.crypto-modal-btc #cryptoModalTitle,
+.crypto-modal-btc #cryptoAddress,
+.crypto-modal-btc .close-btn,
+  color: #fff !important;
+  text-shadow: 0 2px 10px #0004;
+}
+.crypto-modal-btc #cryptoCopied,
+  color: #fff !important;
+  text-shadow: 0 2px 10px #0006;
+}
+
+/* Ko-fi modal specific */
+.kofi-modal-content {
+  width: 320px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+#kofiframe {
+  width: 100%;
+  height: 600px;
+  max-height: calc(90vh - 60px);
+  border: none;
+  background: #f9f9f9;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 1;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--on-surface);
+  border-radius: 9px;
+  padding: 2px 8px;
+  transition: background 0.15s;
+}
+.close-btn:hover,
+.close-btn:focus {
+  background: var(--bg-frost);
+  outline: none;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+#cryptoAddress {
+  font-family: monospace;
+  word-break: break-word;
+  user-select: all;
+  color: inherit;
+  background: rgba(240, 240, 240, 0.16);
+  font-size: 1.08rem;
+  padding: 2px 4px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2px;
+}
+#cryptoQRCode {
+  width: 180px;
+  height: 180px;
+  border-radius: 16px;
+  margin-top: 6px;
+  box-shadow: 0 4px 20px 0 rgba(100, 100, 100, 0.14);
+}
+
+/* Tooltip style */
+.tooltip {
+  position: fixed;
+  z-index: 3000;
+  pointer-events: none;
+  background: #222e;
+  color: #fff;
+  font-size: 0.92rem;
+  padding: 5px 11px;
+  border-radius: 8px;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.22);
+  max-width: 90%;
+  white-space: normal;
+  word-break: break-word;
+  opacity: 0.94;
+  transition: opacity 0.13s, transform 0.16s;
+  transform: translateY(-6px) scale(1.04);
+}
+
+/* Flip animation for dynamic results */
+@keyframes flipIn {
+  from {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+.flip-anim {
+  display: inline-block;
+  transform-origin: bottom;
+  animation: flipIn 0.6s ease forwards;
+}

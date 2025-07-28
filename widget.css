@@ -1,0 +1,171 @@
+:host {
+  --popup-width: auto;
+  --primary: #845ef7;
+  --on-primary: #ffffff;
+  --bg-frost-light: rgba(0,0,0,0.04);
+  --bg-frost-dark: rgba(255,255,255,0.06);
+  --shadow: rgba(0,0,0,0.18);
+  --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --select-bg-light: #f5f5f7;
+  --select-bg-dark: #232234;
+  --select-text-light: #1a1a1a;
+  --select-text-dark: #ececec;
+}
+:host([data-theme="light"]) {
+  --bg-frost: var(--bg-frost-light);
+}
+:host([data-theme="dark"]) {
+  --bg-frost: var(--bg-frost-dark);
+}
+.card {
+  background: var(--surface, #eee);
+  padding: 8px;
+  border-radius: 34px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.swap-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 34px;
+  background: var(--select-bg, var(--select-bg-light));
+  color: var(--select-text, var(--select-text-light));
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='gray' height='12' viewBox='0 0 20 20' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.293 7.293a1 1 0 0 1 1.414 0L10 8.586l1.293-1.293a1 1 0 1 1 1.414 1.414l-2 2a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em top 50%;
+  background-size: 1em;
+  padding-right: 2.5em;
+  transition: background var(--transition,0.18s), box-shadow var(--transition,0.18s), transform var(--transition,0.18s);
+}
+select:hover,
+input:hover,
+.field:hover select,
+.field:hover input {
+  border-color: var(--primary);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px rgba(132,94,247,0.2);
+}
+/* 1) Supprime le focus ring natif du navigateur */
+select:focus {
+  outline: none;
+}
+
+/* 2) Quand le <select> est focus mais QUE la souris n’est PAS dessus, on enlève tout box-shadow */
+select:focus:not(:hover) {
+  box-shadow: none !important;
+}
+
+:host([data-theme="dark"]) select {
+  background: var(--select-bg-dark);
+  color: var(--select-text-dark);
+}
+
+.swap-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary, #845ef7);
+  color: var(--on-primary, #fff);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  transition: background var(--transition,0.18s), box-shadow 0.2s, transform 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+.swap-btn:hover {
+  background: #7c4dff;
+  transform: scale(1.1) rotate(-8deg);
+}
+.swap-btn.rotating .swap-svg {
+  transform: rotate(360deg);
+  transition: transform 0.48s cubic-bezier(0.39,0.58,0.57,1.26);
+}
+.swap-svg {
+  transition: transform 0.42s cubic-bezier(0.39,0.58,0.57,1.26);
+  display: block;
+}
+#result {
+  background: var(--bg-frost, var(--bg-frost-light));
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10px auto 18px;
+  max-width: 65%;
+  border: 1px solid var(--bg-frost, var(--bg-frost-light));
+  transition: all 0.2s ease;
+}
+:host([data-theme="light"]) #result {
+  color: var(--select-text-light);
+}
+:host([data-theme="dark"]) #result {
+  color: var(--select-text-dark);
+}
+#result:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(132,94,247,0.15);
+}
+button#copy {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 1.04rem;
+  font-weight: 700;
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 34px;
+  box-shadow: 0 6px 24px var(--shadow);
+  cursor: pointer;
+  transition: background var(--transition), box-shadow 0.17s;
+  margin-bottom: 8px;
+  display: block;
+  text-align: center;
+}
+button#copy:active,
+button#copy.copied-anim {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff !important;
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+button#copy:hover {
+  background: #7c4dff;
+  box-shadow: 0 9px 34px var(--shadow);
+}
+button {
+  cursor: pointer;
+}
+
+/* Flip animation used when updating result */
+@keyframes flipIn {
+  from {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+.flip-anim {
+  display: inline-block;
+  transform-origin: bottom;
+  animation: flipIn 0.6s ease forwards;
+}

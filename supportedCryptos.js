@@ -1,0 +1,21 @@
+export const supportedCryptos = {
+  btc: 'bitcoin',
+  eth: 'ethereum',
+  bnb: 'binancecoin',
+  ada: 'cardano',
+  doge: 'dogecoin',
+  xrp: 'ripple',
+  dot: 'polkadot',
+  usdt: 'tether',
+  sol: 'solana',
+  ltc: 'litecoin',
+  shib: 'shiba-inu',
+  matic: 'matic-network',
+  dai: 'dai',
+  avax: 'avalanche-2',
+  trx: 'tron',
+  uni: 'uniswap',
+  link: 'chainlink',
+  usdc: 'usd-coin',
+  near: 'near'
+};

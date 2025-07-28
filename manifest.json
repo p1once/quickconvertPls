@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "QuickConvert+",
+  "description": "Instant Unit & Currency Converter+",
+  "version": "1.1.0",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["quickWidget.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "commands": {
+    "open-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Open QuickConvert+"
+    },
+    "quick-convert": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Q",
+        "mac": "Command+Shift+Q"
+      },
+      "description": "Quick convert selected text"
+    }
+  },
+  "permissions": ["storage", "alarms", "scripting"],
+  "host_permissions": [
+    "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/*",
+    "https://api.exchangerate-api.com/v4/latest/*",
+    "https://open.er-api.com/v6/latest/*",
+    "https://api.coinbase.com/v2/exchange-rates*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "popup.html",
+        "popup.css",
+        "widget.css",
+        "conversions.js",
+        "kofi_icon.svg",
+        "btc.svg",
+        "locales/*.json"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
