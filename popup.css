@@ -3,17 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --primary: #845ef7;
-  --primary-hover: #7c4dff;
+  --primary: #0ea5e9;
+  --primary-hover: #0284c7;
   --on-primary: #ffffff;
-  --surface-light: rgba(255, 255, 255, 0.92);
+  --surface-light: rgba(250, 250, 250, 0.92);
+  --surface-dark: rgba(18, 18, 18, 0.92);
+  --on-surface-light: #121212;
+  --on-surface-dark: #ececec;
   --shadow: rgba(0, 0, 0, 0.18);
   --radius: 20px;
   --card-radius: 20px;
   --bg-frost-light: rgba(0, 0, 0, 0.04);
   --bg-frost-dark: rgba(255, 255, 255, 0.06);
   --transition: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
-  --font: "Roboto", system-ui, sans-serif;
+  --font: "Inter", system-ui, sans-serif;
   --popup-width: 340px;
   --select-bg-light: #f5f5f7;
   --select-bg-dark: #232234;
@@ -90,6 +93,7 @@ html::-webkit-scrollbar {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  animation: fadeSlideIn 0.4s ease;
 }
 
 /* Header and controls */
@@ -122,11 +126,12 @@ html::-webkit-scrollbar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.13s;
+  transition: background 0.13s, transform 0.15s;
 }
 :is(.theme-toggle, .settings-btn, .support-btn):is(:hover, :focus) {
   background: var(--bg-frost) !important;
   outline: none !important;
+  transform: translateY(-2px);
 }
 .theme-icon {
   pointer-events: none;
@@ -138,7 +143,7 @@ html::-webkit-scrollbar {
 .app-title {
   font-size: 1.5rem;
   font-weight: 700;
-  background-image: linear-gradient(to right, var(--primary), #6a43d6); /* Using existing primary color and a slightly darker shade */
+  background-image: linear-gradient(to right, var(--primary), var(--primary-hover));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -263,12 +268,12 @@ input:hover,
 .field:hover select,
 .field:hover input {
   border-color: var(--primary);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(132, 94, 247, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(14, 165, 233, 0.2);
 }
 
 /* Améliorer l'état focus */
 input:focus {
-  box-shadow: 0 0 0 3px rgba(132, 94, 247, 0.3); /* Ring plus visible */
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3); /* Ring plus visible */
   border: 2px solid var(--primary); /* Bordure plus épaisse */
   transform: translateY(-1px); /* Légère élévation */
 }
@@ -329,7 +334,7 @@ html.opera[data-theme="dark"] input[type='number']::-webkit-outer-spin-button {
   animation: spin 0.8s linear infinite;
   margin-left: 8px;
   display: none;
-  filter: drop-shadow(0 2px 4px rgba(132, 94, 247, 0.3)); /* Ombre colorée */
+  filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.3)); /* Ombre colorée */
 }
 
 output#result {
@@ -352,7 +357,7 @@ output#result {
 output#result:hover {
   border-color: var(--primary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(132, 94, 247, 0.15);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
 }
 
 button#copy {
@@ -582,4 +587,15 @@ button#copy:hover {
   display: inline-block;
   transform-origin: bottom;
   animation: flipIn 0.6s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
