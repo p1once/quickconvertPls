@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   document.documentElement.setAttribute("data-theme", quickconvert_theme)
+  document.documentElement.classList.toggle("dark", quickconvert_theme === "dark")
 
   $("language").value = language
   $("norm").value = norm

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :host {
   --popup-width: auto;
   --primary: #845ef7;

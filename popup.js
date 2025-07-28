@@ -383,6 +383,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Theme
   function setTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme)
+    document.documentElement.classList.toggle("dark", theme === "dark")
     themeIcon.textContent = theme === "dark" ? "☀️" : "🌙"
     window.chrome.storage.sync.set({ quickconvert_theme: theme })
   }
