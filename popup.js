@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function setTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme)
     document.documentElement.classList.toggle("dark", theme === "dark")
-    themeIcon.textContent = theme === "dark" ? "☀️" : "🌙"
+    themeIcon.textContent = theme === "dark" ? "light_mode" : "dark_mode"
     window.chrome.storage.sync.set({ quickconvert_theme: theme })
   }
 
@@ -399,7 +399,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   themeToggle.addEventListener("click", () => {
     const cur = document.documentElement.getAttribute("data-theme") || "light"
+    themeIcon.classList.add("spin")
     setTheme(cur === "light" ? "dark" : "light")
+    setTimeout(() => themeIcon.classList.remove("spin"), 350)
   })
 
   await initTheme()
