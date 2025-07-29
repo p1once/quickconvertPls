@@ -18,7 +18,17 @@ export default defineConfig({
       targets: [
         { src: 'manifest.json', dest: '.' },
         { src: '*.png', dest: '.' },
-        { src: '*.svg', dest: '.' }
+        { src: '*.svg', dest: '.' },
+        { src: 'quickWidget.js', dest: '.' },
+        { src: 'widget.css', dest: '.' },
+        { src: 'background.js', dest: '.' },
+        { src: 'conversions.js', dest: '.' },
+        { src: 'cryptoRates.js', dest: '.' },
+        { src: 'cache.js', dest: '.' },
+        { src: 'supportedCryptos.js', dest: '.' },
+        { src: 'utils.js', dest: '.' },
+        { src: 'i18n.js', dest: '.' },
+        { src: 'locales/**/*', dest: 'locales' }
       ]
     })
   ]
