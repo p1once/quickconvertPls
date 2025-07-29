@@ -4,29 +4,29 @@
   "description": "Instant Unit & Currency Converter+",
   "version": "1.1.0",
   "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "16": "src/assets/icons/icon16.png",
+    "48": "src/assets/icons/icon48.png",
+    "128": "src/assets/icons/icon128.png"
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup/popup.html",
     "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png"
+      "16": "src/assets/icons/icon16.png",
+      "48": "src/assets/icons/icon48.png"
     }
   },
   "options_ui": {
-    "page": "options.html",
+    "page": "src/options/options.html",
     "open_in_tab": true
   },
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "src/background/background.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["quickWidget.js"],
+      "js": ["src/content/quickWidget.js"],
       "run_at": "document_end"
     }
   ],
@@ -56,12 +56,12 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "popup.html",
-        "popup.css",
+        "src/popup/popup.html",
+        "src/popup/popup.css",
         "widget.css",
-        "conversions.js",
-        "kofi_icon.svg",
-        "btc.svg",
+        "src/utils/conversions.js",
+        "src/assets/svg/kofi_icon.svg",
+        "src/assets/svg/btc.svg",
         "locales/*.json"
       ],
       "matches": ["<all_urls>"]

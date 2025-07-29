@@ -14,8 +14,8 @@ const WIDGET_CSS_URL =
     : "widget.css";
 const CONVERSIONS_URL =
   typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL
-    ? chrome.runtime.getURL("conversions.js")
-    : "conversions.js";
+    ? chrome.runtime.getURL("src/utils/conversions.js")
+    : "src/utils/conversions.js";
 
 const DEFAULT_LANG = "en";
 let currentLang = DEFAULT_LANG;

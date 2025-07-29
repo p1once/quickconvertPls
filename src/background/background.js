@@ -1,8 +1,8 @@
 // background.js - service worker amélioré
 // L'objet chrome est déjà disponible globalement dans les extensions Chrome
-import { ExtensionCache } from "./cache.js";
-import * as conv from "./conversions.js";
-import * as cryptoMod from "./cryptoRates.js";
+import { ExtensionCache } from "../utils/cache.js";
+import * as conv from "../utils/conversions.js";
+import * as cryptoMod from "../utils/cryptoRates.js";
 
 const DEBUG = false
 

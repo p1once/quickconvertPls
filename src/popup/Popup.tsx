@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { unitCategories, convertUnit } from './conversions.js'
-import { setLanguage, initLanguage, t } from './i18n.js'
-import { getDefaultSettings } from './utils.js'
+import { unitCategories, convertUnit } from '../utils/conversions.js'
+import { setLanguage, initLanguage, t } from '../../i18n.js'
+import { getDefaultSettings } from '../utils/utils.js'
 
 declare const chrome: any
 
@@ -56,7 +56,7 @@ export default function Popup() {
     if (chrome.runtime.openOptionsPage) {
       chrome.runtime.openOptionsPage()
     } else {
-      window.open(chrome.runtime.getURL('options.html'))
+      window.open(chrome.runtime.getURL('src/options/options.html'))
     }
   }
 

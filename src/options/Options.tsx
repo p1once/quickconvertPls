@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { setLanguage, t, initLanguage } from './i18n.js'
-import { getDefaultSettings, debounce } from './utils.js'
+import { setLanguage, t, initLanguage } from '../../i18n.js'
+import { getDefaultSettings, debounce } from '../utils/utils.js'
 
 // chrome typings are not available
 declare const chrome: any
