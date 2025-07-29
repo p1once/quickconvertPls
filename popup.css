@@ -100,55 +100,25 @@ html::-webkit-scrollbar {
 
 /* Card */
 .card {
-  position: relative;
+  @apply relative flex flex-col w-full p-4 rounded-xl shadow-xl ring-1 ring-black/5 backdrop-blur-lg transition-all;
   background: var(--surface);
-  backdrop-filter: blur(16px);
-  border-radius: var(--card-radius) !important;
-  box-shadow: 0 8px 30px var(--shadow);
-  padding: 12px 10px 40px;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   animation: fadeSlideIn 0.4s ease;
 }
 
 /* Header and controls */
 .header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  @apply flex items-center justify-between mb-3;
 }
 .header-buttons {
-  display: flex;
-  gap: 0 !important;
-  justify-content: flex-start;
-  margin-left: 0;
+  @apply flex gap-2;
 }
 .theme-toggle,
 .settings-btn,
 .support-btn {
-  margin: 0 !important;
-  padding: 4px 2px !important;
-  font-size: 1.2rem !important;
-  border-radius: 14px !important;
-  background: none !important;
-  border: none !important;
-  cursor: pointer !important;
-  color: var(--on-surface) !important;
-  flex-shrink: 0 !important;
-  box-shadow: none !important;
-  line-height: 1 !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.13s, transform 0.15s;
+  @apply m-0 px-1 py-1 text-xl rounded-lg bg-transparent border-none cursor-pointer text-[color:var(--on-surface)] flex items-center justify-center transition transform-gpu duration-200 ease-in-out;
 }
 :is(.theme-toggle, .settings-btn, .support-btn):is(:hover, :focus) {
-  background: var(--bg-frost) !important;
-  outline: none !important;
-  transform: translateY(-2px);
+  @apply bg-[color:var(--bg-frost)] -translate-y-0.5 outline-none;
 }
 .theme-icon {
   pointer-events: none;
@@ -207,21 +177,9 @@ html::-webkit-scrollbar {
   text-overflow: ellipsis;
 }
 .export-btn {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: none;
-  border-radius: var(--radius);
+  @apply flex items-center gap-1 px-3 py-2 rounded-md shadow-md text-sm font-medium cursor-pointer transition-colors duration-200 relative;
   background: var(--primary);
   color: var(--on-primary);
-  cursor: pointer;
-  box-shadow: 0 2px 6px var(--shadow);
-  transition: background var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  position: relative;
 }
 .export-btn:hover {
   background: var(--primary-hover);
@@ -262,17 +220,10 @@ label {
 }
 select,
 input {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px 16px;
-  font-size: 1rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius) !important;
+  @apply w-full px-4 py-2 text-base border border-transparent rounded-md shadow-inner outline-none transition-all duration-200;
   background: var(--bg-frost);
   color: var(--on-surface);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow var(--transition), border 0.18s, transform var(--transition);
-  outline: none;
+  box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -333,23 +284,13 @@ html.opera[data-theme="dark"] input[type='number']::-webkit-outer-spin-button {
   margin-bottom: 2px;
 }
 .swap-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50% !important;
+  @apply w-9 h-9 flex items-center justify-center rounded-full border-none cursor-pointer shadow hover:shadow-lg transition-transform duration-300 ease-out;
   background: var(--primary);
   color: var(--on-primary);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
-  transition: background var(--transition), box-shadow 0.2s, transform 0.18s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   outline: none;
 }
 .swap-btn:hover {
   background: var(--primary-hover);
-  transform: scale(1.1) rotate(-8deg);
 }
 .swap-btn.rotating .swap-svg {
   transform: rotate(360deg);
@@ -397,26 +338,16 @@ output#result:hover {
 }
 
 button#copy {
-  width: 100%;
-  padding: 10px 16px;
-  font-size: 1.04rem;
-  font-weight: 700;
+  @apply w-full px-4 py-2 text-base font-bold rounded-md cursor-pointer shadow-md transition duration-200 text-center;
   background: var(--primary);
   color: var(--on-primary);
-  border: none;
-  border-radius: var(--radius) !important;
-  box-shadow: 0 6px 24px var(--shadow);
-  cursor: pointer;
-  transition: background var(--transition), box-shadow 0.17s;
   margin-bottom: 8px;
-  display: block;
-  text-align: center;
 }
 button#copy:active,
 button#copy.copied-anim {
-  background: linear-gradient(135deg, #10b981, #059669) !important; /* Dégradé vert */
+  background: linear-gradient(135deg, #10b981, #059669) !important;
   color: #fff !important;
-  transform: scale(1.02); /* Moins agressif */
+  transform: scale(1.02);
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 button#copy:hover {
@@ -436,8 +367,7 @@ button#copy:hover {
   z-index: 10;
 }
 .crypto-btn {
-  background: none;
-  border: none;
+  @apply bg-transparent border-none transition-transform duration-200 ease-out;
 }
 
 .kofi-icon {
