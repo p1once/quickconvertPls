@@ -1,5 +1,5 @@
 export default {
-  content: ['./*.html', './*.js'],
+  content: ['./*.html', './*.js', './*.css'],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {}
