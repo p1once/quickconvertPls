@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
 :root {
   --primary-light: #6750a4;
   --primary-hover-light: #5b3d9e;
@@ -565,4 +566,5 @@ button#copy:hover {
     opacity: 1;
     transform: translateY(0);
   }
+}
 }
