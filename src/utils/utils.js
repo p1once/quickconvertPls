@@ -1,6 +1,6 @@
 export { getDefaultSettings, debounce };
 
-import { getCurrentLanguage } from './i18n.js';
+import { getCurrentLanguage } from '../../i18n.js';
 
 function getDefaultSettings() {
   const currentLang = getCurrentLanguage();

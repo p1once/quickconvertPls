@@ -7,7 +7,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: false,
     rollupOptions: {
-      input: ['popup.html', 'options.html'],
+      input: ['src/popup/popup.html', 'src/options/options.html'],
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name][extname]'
@@ -19,16 +19,15 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         { src: 'manifest.json', dest: '.' },
-        { src: '*.png', dest: '.' },
-        { src: '*.svg', dest: '.' },
-        { src: 'quickWidget.js', dest: '.' },
+        { src: 'src/assets/**/*', dest: 'src/assets' },
+        { src: 'src/content/quickWidget.js', dest: 'src/content' },
         { src: 'widget.css', dest: '.' },
-        { src: 'background.js', dest: '.' },
-        { src: 'conversions.js', dest: '.' },
-        { src: 'cryptoRates.js', dest: '.' },
-        { src: 'cache.js', dest: '.' },
-        { src: 'supportedCryptos.js', dest: '.' },
-        { src: 'utils.js', dest: '.' },
+        { src: 'src/background/background.js', dest: 'src/background' },
+        { src: 'src/utils/conversions.js', dest: 'src/utils' },
+        { src: 'src/utils/cryptoRates.js', dest: 'src/utils' },
+        { src: 'src/utils/cache.js', dest: 'src/utils' },
+        { src: 'src/utils/supportedCryptos.js', dest: 'src/utils' },
+        { src: 'src/utils/utils.js', dest: 'src/utils' },
         { src: 'i18n.js', dest: '.' },
         { src: 'locales/**/*', dest: 'locales' }
       ]
