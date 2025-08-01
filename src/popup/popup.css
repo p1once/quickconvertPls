@@ -286,11 +286,13 @@ select option {
   gap: 12px;
   align-items: center;
   position: relative;
+  width: 100%;
 }
 
 .unit-group {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .swap-btn {
