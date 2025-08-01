@@ -48,8 +48,8 @@
 }
 
 body {
-  width: 320px;
-  min-height: 480px;
+  display: inline-block;
+  width: max-content;
   font-family: 'Roboto', system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.5;
@@ -63,16 +63,7 @@ button {
   cursor: pointer;
 }
 
-/* Opera specific styles */
-.opera body {
-  width: 320px;
-}
-
 /* Compact mode */
-.compact-mode body {
-  min-height: 440px;
-}
-
 .compact-mode .card {
   padding: 14px;
 }
@@ -85,7 +76,6 @@ button {
 .card {
   padding: 18px;
   background: var(--bg-primary);
-  min-height: 100vh;
 }
 
 /* Header Section */
