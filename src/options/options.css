@@ -87,7 +87,6 @@ html, body {
 .theme-toggle {
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 1.4rem;
   padding: 6px;
   border-radius: 50%;
@@ -119,6 +118,10 @@ label {
   font-size: 0.95rem;
 }
 
+button {
+  cursor: pointer;
+}
+
 input[type="number"],
 input[type="text"],
 select {
@@ -137,7 +140,6 @@ select {
   color-scheme: dark;
 }
 input:focus {
-  outline: none;
   box-shadow: 0 0 0 2px var(--primary);
   border: 1px solid var(--primary);
 }
@@ -147,8 +149,6 @@ input:focus {
 select {
   background: var(--select-bg);
   color: var(--select-text);
-  border: 1px solid transparent;
-  border-radius: var(--radius);
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -192,7 +192,6 @@ button#save {
   border: none;
   border-radius: var(--radius);
   box-shadow: 0 4px 16px var(--shadow);
-  cursor: pointer;
   transition: background var(--transition);
 }
 button#save:hover {
@@ -251,7 +250,6 @@ button#save:hover {
   background: none;
   border: none;
   font-size: 1.8rem;
-  cursor: pointer;
   color: var(--on-surface);
   line-height: 1;
 }
@@ -286,7 +284,6 @@ button#save:hover {
   color: var(--on-primary);
   border-radius: 6px;
   padding: 3px 8px;
-  cursor: pointer;
   font-weight: 600;
   font-size: 0.75rem;
   transition: background 0.3s;
@@ -301,7 +298,6 @@ button#save:hover {
   font-weight: 600;
   border-radius: var(--radius);
   border: none;
-  cursor: pointer;
   background: var(--primary);
   color: var(--on-primary);
   transition: background 0.3s;
@@ -318,7 +314,6 @@ button#save:hover {
   border-radius: var(--radius);
   padding: 6px 12px;         /* padding réduit */
   font-weight: 600;
-  cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 0.85rem;        /* taille de texte plus petite */
   box-shadow: 0 4px 16px var(--shadow);

@@ -81,7 +81,6 @@ select:focus:not(:hover) {
   background: var(--primary, #845ef7);
   color: var(--on-primary, #fff);
   border: none;
-  cursor: pointer;
   box-shadow: 0 1px 6px rgba(0,0,0,0.08);
   transition: background var(--transition,0.18s), box-shadow 0.2s, transform 0.18s;
   display: flex;
@@ -137,7 +136,6 @@ button#copy {
   border: none;
   border-radius: 34px;
   box-shadow: 0 6px 24px var(--shadow);
-  cursor: pointer;
   transition: background var(--transition), box-shadow 0.17s;
   margin-bottom: 8px;
   display: block;
