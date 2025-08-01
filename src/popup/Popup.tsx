@@ -30,6 +30,16 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
+    const handleStorageChange = (changes, area) => {
+      if (area === 'sync' && changes.language) {
+        setLanguage(changes.language.newValue)
+      }
+    }
+    chrome.storage.onChanged.addListener(handleStorageChange)
+    return () => chrome.storage.onChanged.removeListener(handleStorageChange)
+  }, [])
+
+  useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     document.documentElement.classList.toggle('dark', theme === 'dark')
   }, [theme])

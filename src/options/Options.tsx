@@ -51,6 +51,7 @@ export default function Options() {
 
   useEffect(() => {
     setLanguage(language)
+    chrome.storage.sync.set({ language })
   }, [language])
 
   const saveSettings = useCallback(async () => {
