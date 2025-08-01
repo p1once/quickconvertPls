@@ -86,7 +86,7 @@
 
 @layer base {
   * {
-    @apply border outline-[var(--ring)/0.5];
+    @apply outline-[var(--ring)/0.5];
     border-color: var(--border);
   }
   body {
