@@ -40,6 +40,11 @@ i18n
 
 // Apply translations to static DOM nodes
 export function applyTranslations() {
+  // Update document language attribute for accessibility and to reflect current language
+  if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('lang', i18n.language)
+  }
+
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     const key = element.getAttribute('data-i18n');
     const translation = i18n.t(key);

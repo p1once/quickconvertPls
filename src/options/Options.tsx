@@ -54,6 +54,17 @@ export default function Options() {
     chrome.storage.sync.set({ language })
   }, [language])
 
+  useEffect(() => {
+    const handleStorageChange = async (changes: any, area: string) => {
+      if (area === 'sync' && changes.language) {
+        setLang(changes.language.newValue)
+        await setLanguage(changes.language.newValue)
+      }
+    }
+    chrome.storage.onChanged.addListener(handleStorageChange)
+    return () => chrome.storage.onChanged.removeListener(handleStorageChange)
+  }, [])
+
   const saveSettings = useCallback(async () => {
     const toSave = {
       language,
