@@ -14,18 +14,33 @@ export default function Popup() {
   const [to, setTo] = useState('')
   const [value, setValue] = useState('')
   const [result, setResult] = useState('')
+  const [historyEnabled, setHistoryEnabled] = useState(false)
+  const [history, setHistory] = useState<any[]>([])
+  const [historyMax, setHistoryMax] = useState(10)
 
   useEffect(() => {
     ;(async () => {
       await initLanguage()
       const defaults = getDefaultSettings()
-      const stored = await chrome.storage.sync.get(['quickconvert_theme', 'category', 'from', 'to', 'language'])
+      const stored = await chrome.storage.sync.get([
+        'quickconvert_theme',
+        'category',
+        'from',
+        'to',
+        'language',
+        'historyEnabled',
+        'history',
+        'historyMax',
+      ])
       setTheme(stored.quickconvert_theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
       setCategory(stored.category || 'distance')
       const defUnits = Object.keys(unitCategories[stored.category || 'distance'])
       setFrom(stored.from || defUnits[0])
       setTo(stored.to || defUnits[1] || defUnits[0])
       if (stored.language) setLanguage(stored.language)
+      setHistoryEnabled(stored.historyEnabled ?? false)
+      setHistory(Array.isArray(stored.history) ? stored.history : [])
+      setHistoryMax(stored.historyMax ?? 10)
     })()
   }, [])
 
@@ -53,10 +68,18 @@ export default function Popup() {
       const v = parseFloat(value)
       const res = convertUnit(v, from, to, category)
       setResult(res.toFixed(4))
+      if (historyEnabled) {
+        const record = { time: Date.now(), category, input: v, from, output: res, to }
+        setHistory((prev) => {
+          const newHist = [record, ...prev].slice(0, Number(historyMax))
+          chrome.storage.sync.set({ history: newHist })
+          return newHist
+        })
+      }
     } catch (e) {
       setResult('')
     }
-  }, [value, from, to, category])
+  }, [value, from, to, category, historyEnabled, historyMax])
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light'
@@ -70,6 +93,26 @@ export default function Popup() {
     } else {
       window.open(chrome.runtime.getURL('src/options/options.html'))
     }
+  }
+
+  const exportCSV = () => {
+    if (history.length === 0) {
+      alert(t('historyEmptyMessage'))
+      return
+    }
+    const lines = history.map((rec) => [rec.time, rec.category, rec.input, rec.from, rec.output, rec.to].join(';'))
+    const csvContent = ['time;category;input;from;output;to\n', ...lines].join('\n')
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'quickconvert-history.csv'
+    document.body.appendChild(a)
+    a.click()
+    setTimeout(() => {
+      URL.revokeObjectURL(url)
+      a.remove()
+    }, 300)
   }
 
   useEffect(() => {
@@ -104,11 +147,26 @@ export default function Popup() {
           </div>
         </div>
 
-        <div className="field history-field">
+        <div className="field history-field" style={{ display: historyEnabled ? 'block' : 'none' }}>
           <label htmlFor="history" data-i18n="historyLabel">History</label>
           <div className="history-row">
-            <select id="history" className="transition-colors duration-150 focus:ring-2 focus:ring-[var(--primary)] focus:outline-none rounded-md" aria-label="Conversion history"></select>
-            <button id="exportBtn" className="export-btn transition-colors duration-150 hover:bg-[var(--primary-hover)]" data-i18n="exportButton">
+            <select
+              id="history"
+              className="transition-colors duration-150 focus:ring-2 focus:ring-[var(--primary)] focus:outline-none rounded-md"
+              aria-label="Conversion history"
+            >
+              {history.map((rec) => (
+                <option key={rec.time} value={rec.time}>
+                  {rec.input} {rec.from} = {rec.output.toFixed(4)} {rec.to}
+                </option>
+              ))}
+            </select>
+            <button
+              id="exportBtn"
+              className="export-btn transition-colors duration-150 hover:bg-[var(--primary-hover)]"
+              data-i18n="exportButton"
+              onClick={exportCSV}
+            >
               Export CSV
               <span id="exportLoader" className="export-loader"></span>
             </button>
