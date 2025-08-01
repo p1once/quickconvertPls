@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { setLanguage, initLanguage } from '../../i18n.js'
 import { useTranslation } from 'react-i18next'
-import { getDefaultSettings, debounce } from '../utils/utils.js'
+import { getDefaultSettings } from '../utils/utils.js'
 
 // chrome typings are not available
 declare const chrome: any
@@ -81,12 +81,18 @@ export default function Options() {
     setTimeout(() => setStatus(''), 1200)
   }, [language, norm, normEnabled, decimals, dataMode, base, historyEnabled, historyMax, tooltipEnabled])
 
-  const debouncedSave = useCallback(debounce(saveSettings, 2000), [saveSettings])
-
   const handleChange = (fn: (v: any) => void) => (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     fn(e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value)
-    debouncedSave()
   }
+
+  const initialRender = useRef(true)
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false
+      return
+    }
+    saveSettings()
+  }, [language, norm, normEnabled, decimals, dataMode, base, historyEnabled, historyMax, tooltipEnabled, saveSettings])
 
   const loadHistory = useCallback(async () => {
     const { history = [] } = await chrome.storage.sync.get('history')
