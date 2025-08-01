@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { setLanguage, t, initLanguage } from '../../i18n.js'
+import { setLanguage, initLanguage } from '../../i18n.js'
+import { useTranslation } from 'react-i18next'
 import { getDefaultSettings, debounce } from '../utils/utils.js'
 
 // chrome typings are not available
 declare const chrome: any
 
 export default function Options() {
+  const { t } = useTranslation()
   const [language, setLang] = useState('en')
   const [norm, setNorm] = useState('us')
   const [normEnabled, setNormEnabled] = useState(true)
