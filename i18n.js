@@ -1,43 +1,48 @@
-// Translation system using external locale files
-let translations = {};
-let currentLanguage = 'en';
-const defaultLanguage = 'en';
+// i18n configuration using i18next for React
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-async function loadLanguage(lang) {
-  if (translations[lang]) return;
-  const url = chrome.runtime.getURL(`locales/${lang}.json`);
-  try {
-    const res = await fetch(url);
-    translations[lang] = await res.json();
-  } catch (err) {
-    console.error(`Failed to load language ${lang}`, err);
-    translations[lang] = {};
-  }
-}
+import ar from './locales/ar.json';
+import de from './locales/de.json';
+import en from './locales/en.json';
+import es from './locales/es.json';
+import fr from './locales/fr.json';
+import hi from './locales/hi.json';
+import ja from './locales/ja.json';
+import ko from './locales/ko.json';
+import ptBR from './locales/pt-BR.json';
+import ru from './locales/ru.json';
+import zhCN from './locales/zh-CN.json';
 
-export async function setLanguage(lang) {
-  await loadLanguage(defaultLanguage);
-  currentLanguage = lang;
-  await loadLanguage(lang);
-  applyTranslations();
-}
+// Build resources object for i18next
+const resources = {
+  ar: { translation: ar },
+  de: { translation: de },
+  en: { translation: en },
+  es: { translation: es },
+  fr: { translation: fr },
+  hi: { translation: hi },
+  ja: { translation: ja },
+  ko: { translation: ko },
+  'pt-BR': { translation: ptBR },
+  ru: { translation: ru },
+  'zh-CN': { translation: zhCN },
+};
 
-export function getCurrentLanguage() {
-  return currentLanguage;
-}
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: 'en',
+    fallbackLng: 'en',
+    interpolation: { escapeValue: false },
+  });
 
-export function t(key) {
-  return (
-    translations[currentLanguage]?.[key] ||
-    translations[defaultLanguage]?.[key] ||
-    key
-  );
-}
-
+// Apply translations to static DOM nodes
 export function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach((element) => {
     const key = element.getAttribute('data-i18n');
-    const translation = t(key);
+    const translation = i18n.t(key);
 
     if (element.tagName.toLowerCase() === 'input' && element.type !== 'checkbox') {
       element.placeholder = translation;
@@ -49,7 +54,7 @@ export function applyTranslations() {
   });
 
   // Localize language names using Intl.DisplayNames
-  const langNames = new Intl.DisplayNames([currentLanguage], { type: 'language' });
+  const langNames = new Intl.DisplayNames([i18n.language], { type: 'language' });
   const languageMap = {};
   document
     .querySelectorAll('option[data-i18n^="language"]')
@@ -74,20 +79,27 @@ export function applyTranslations() {
 
   document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
     const key = element.getAttribute('data-i18n-placeholder');
-    element.placeholder = t(key);
+    element.placeholder = i18n.t(key);
   });
 
-  document.title = t('extName');
+  document.title = i18n.t('extName');
 }
 
-export async function initLanguage() {
-  const { language = defaultLanguage } = await window.chrome.storage.sync.get('language');
-  currentLanguage = language;
-  await loadLanguage(defaultLanguage);
-  if (language !== defaultLanguage) {
-    await loadLanguage(language);
-  }
+export async function setLanguage(lang) {
+  await i18n.changeLanguage(lang);
   applyTranslations();
 }
 
-export { translations };
+export function getCurrentLanguage() {
+  return i18n.language;
+}
+
+export const t = (key, options) => i18n.t(key, options);
+
+export async function initLanguage() {
+  const { language = 'en' } = await window.chrome.storage.sync.get('language');
+  await i18n.changeLanguage(language);
+  applyTranslations();
+}
+
+export { i18n as default };

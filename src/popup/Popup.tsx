@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { unitCategories, convertUnit } from '../utils/conversions.js'
-import { setLanguage, initLanguage, t } from '../../i18n.js'
+import { setLanguage, initLanguage } from '../../i18n.js'
+import { useTranslation } from 'react-i18next'
 import { getDefaultSettings } from '../utils/utils.js'
 
 declare const chrome: any
 
 export default function Popup() {
+  const { t } = useTranslation()
   const [theme, setTheme] = useState('light')
   const [category, setCategory] = useState('distance')
   const [from, setFrom] = useState('')

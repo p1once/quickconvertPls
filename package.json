@@ -21,6 +21,8 @@
   "dependencies": {
     "@vitejs/plugin-react": "^4.7.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "i18next": "^23.11.5",
+    "react-i18next": "^15.2.0"
   }
 }
