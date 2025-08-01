@@ -66,6 +66,17 @@ export default function Popup() {
     if (!units.includes(to)) setTo(units[1] || units[0])
   }, [category])
 
+  useEffect(() => {
+    const resize = () => {
+      const { scrollWidth, scrollHeight } = document.documentElement
+      window.resizeTo(scrollWidth, scrollHeight)
+    }
+    resize()
+    const ro = new ResizeObserver(resize)
+    ro.observe(document.documentElement)
+    return () => ro.disconnect()
+  }, [])
+
   return (
     <>
       <div className="card bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 mx-auto transition-all">
