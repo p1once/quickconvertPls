@@ -736,12 +736,13 @@ input[style*="border-color"] {
   }
 
   .swap-group {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    justify-content: center;
   }
 
   .swap-btn {
-    margin-top: 8px;
+    margin-top: 0;
     margin-bottom: 0;
     justify-self: center;
   }
