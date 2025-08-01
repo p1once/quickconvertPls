@@ -30,9 +30,9 @@ export default function Popup() {
   }, [])
 
   useEffect(() => {
-    const handleStorageChange = (changes, area) => {
+    const handleStorageChange = async (changes: any, area: string) => {
       if (area === 'sync' && changes.language) {
-        setLanguage(changes.language.newValue)
+        await setLanguage(changes.language.newValue)
       }
     }
     chrome.storage.onChanged.addListener(handleStorageChange)
