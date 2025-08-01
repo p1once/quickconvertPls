@@ -282,9 +282,9 @@ select option {
 /* Swap Group */
 .swap-group {
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   gap: 12px;
-  align-items: end;
+  align-items: center;
   position: relative;
 }
 
