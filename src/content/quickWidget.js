@@ -10,8 +10,8 @@ let selectedValue = null;
 
 const WIDGET_CSS_URL =
   typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL
-    ? chrome.runtime.getURL("widget.css")
-    : "widget.css";
+    ? chrome.runtime.getURL("src/styles/widget.css")
+    : "src/styles/widget.css";
 const CONVERSIONS_URL =
   typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.getURL
     ? chrome.runtime.getURL("src/utils/conversions.js")

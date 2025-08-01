@@ -58,7 +58,7 @@
       "resources": [
         "src/popup/popup.html",
         "src/popup/popup.css",
-        "widget.css",
+        "src/styles/widget.css",
         "src/utils/conversions.js",
         "src/assets/svg/kofi_icon.svg",
         "src/assets/svg/btc.svg",
