@@ -68,7 +68,7 @@ export default function Popup() {
 
   return (
     <>
-      <div className="card bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 w-[340px] mx-auto transition-all">
+      <div className="card bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 w-[360px] mx-auto transition-all">
         <div className="header-row flex items-center justify-between mb-3">
           <h1 data-i18n="popupTitle" className="app-title">QuickConvert+</h1>
           <div className="header-buttons">
