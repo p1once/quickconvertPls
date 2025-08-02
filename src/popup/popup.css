@@ -49,7 +49,7 @@
 
 body {
   display: inline-block;
-  width: 420px;
+  width: 480px;
   font-family: 'Roboto', system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.5;
@@ -539,7 +539,7 @@ select option {
 }
 
 .kofi-modal-content {
-  width: 420px;
+  width: 480px;
   height: 600px;
 }
 
